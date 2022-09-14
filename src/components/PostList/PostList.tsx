@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { PostItem } from '../PostItem';
 import { IPost } from '../types/typex';
 import Styled from './PostList.styles';
 
@@ -9,16 +10,8 @@ interface IPostListProps {
 const PostList: FC<IPostListProps> = ({ posts }) => {
   return (
     <Styled.Wrapper>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <div>
-            {post.id}. {post.title}
-            <div>{post.body}</div>
-          </div>
-          <div>
-            <button>Удалить</button>
-          </div>
-        </div>
+      {posts.map((post, index) => (
+        <PostItem post={post} key={post.id} number={index + 1} />
       ))}
     </Styled.Wrapper>
   );

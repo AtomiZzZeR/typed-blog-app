@@ -6,6 +6,7 @@ const Wrapper = styled.div`
   width: 500px;
   border: 4px solid #222;
   margin: 10px 0px 0px 0px;
+  border-radius: 10px;
 `;
 
 const StyledPostList = {

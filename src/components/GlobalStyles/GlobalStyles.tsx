@@ -14,7 +14,12 @@ const GlobalStyles = createGlobalStyle`
 
 	#root {
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	body {
+		font-family: Arial, Helvetica, sans-serif;
 	}
 `;
 
