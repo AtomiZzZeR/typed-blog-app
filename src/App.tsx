@@ -1,31 +1,16 @@
-import React, { useState, ChangeEvent, MouseEventHandler } from 'react';
-import { IUser } from './components/types/types';
-import { UserList } from './components/UserList';
+import React from 'react';
 import { v4 as uuid } from 'uuid';
-import { AddUser } from './components/AddUser';
+import { PostList } from './components/PostList';
 
 const App = () => {
-  const [users, setUsers] = useState<IUser[]>([
-    {
-      id: uuid(),
-      name: 'Vadya',
-      email: 'vad@mail.ru',
-    },
-    {
-      id: uuid(),
-      name: 'Dmitriy',
-      email: 'dmiy@mail.ru',
-    },
-  ]);
-
-  const addUser = (newUser: IUser) => {
-    setUsers([...users, newUser]);
-  };
+  const posts = [
+    { userId: 1, id: 1, title: 'post 1', body: 'description...' },
+    { userId: 2, id: 2, title: 'post 2', body: 'description...' },
+  ];
 
   return (
     <>
-      <UserList users={users} />
-      <AddUser addUser={addUser} />
+      <PostList posts={posts} />
     </>
   );
 };

@@ -8,9 +8,13 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	html,
-	body,
-	#root {
+	body {
 		height: 100%;
+	}
+
+	#root {
+		display: flex;
+		justify-content: center;
 	}
 `;
 
