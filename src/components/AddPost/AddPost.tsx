@@ -31,7 +31,7 @@ const AddPost: FC = () => {
 
     sessionStorage.setItem(
       'postData',
-      JSON.stringify({ ...post, title: post.title })
+      JSON.stringify({ ...post, title: e.target.value })
     );
   };
 
@@ -39,7 +39,7 @@ const AddPost: FC = () => {
     setPost({ ...post, body: e.target.value });
     sessionStorage.setItem(
       'postData',
-      JSON.stringify({ ...post, body: post.body })
+      JSON.stringify({ ...post, body: e.target.value })
     );
   };
 
@@ -74,6 +74,7 @@ const AddPost: FC = () => {
       id: uuid(),
       title: post.title,
       body: post.body,
+      creationDate: Date.now(	),
     };
 
     dispatch(PostActionList.addPost(newPost));

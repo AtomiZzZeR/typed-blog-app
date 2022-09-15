@@ -1,4 +1,5 @@
 // import axios from 'axios';
+import _ from 'lodash';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPost } from '../../feature/post/postSlice';
@@ -27,10 +28,12 @@ const PostList: FC = () => {
 
   const { posts } = postSelector;
 
+  const sortedPosts = _.sortBy(posts, 'creationDate');
+
   return (
     <Styled.Container>
       <Styled.Wrapper>
-        {posts.map((post: IPost, index: number) => (
+        {sortedPosts.map((post: IPost, index: number) => (
           <PostItem post={post} key={post.id} number={index + 1} />
         ))}
       </Styled.Wrapper>
