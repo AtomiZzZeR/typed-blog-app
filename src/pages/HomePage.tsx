@@ -11,7 +11,16 @@ const HomePage = () => {
 
   return (
     <Styled.Wrapper>
-      {posts.length ? <PostList /> : <div>Посты не найдены</div>}
+      <Styled.Container>
+        <Styled.TitlePostList>Post List</Styled.TitlePostList>
+        {posts.length ? (
+          <PostList />
+        ) : (
+          <Styled.MessagePostsNotFound>
+            Posts not found
+          </Styled.MessagePostsNotFound>
+        )}
+      </Styled.Container>
     </Styled.Wrapper>
   );
 };

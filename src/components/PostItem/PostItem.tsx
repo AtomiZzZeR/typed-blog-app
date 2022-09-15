@@ -18,13 +18,11 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   return (
     <Styled.Wrapper>
-      <div>
+      <Styled.Title>
         {number}. {post.title}
-        <div>{post.body}</div>
-      </div>
-      <div>
-        <button onClick={handleRemovePostClick}>Удалить</button>
-      </div>
+      </Styled.Title>
+      <Styled.Content>{post.body}</Styled.Content>
+      <Styled.ButtonDelete onClick={handleRemovePostClick} />
     </Styled.Wrapper>
   );
 };

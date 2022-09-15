@@ -1,23 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IPost } from '../../components/types/typex';
-import { v4 as uuid } from 'uuid';
 
 interface IInitialState {
   posts: IPost[];
 }
 
 const initialState: IInitialState = {
-  posts: [
-    { id: uuid(), title: 'post 1', body: 'description...' },
-    { id: uuid(), title: 'post 2', body: 'description...' },
-    { id: uuid(), title: 'post 3', body: 'description...' },
-  ],
+  posts: [],
 };
 
 const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
+    addPosts: (state) => {
+      state.posts = JSON.parse(localStorage.getItem('posts')!) || [];
+    },
     addPost: (state, { payload }) => {
       const { id, title, body } = payload;
 
@@ -29,9 +27,12 @@ const postSlice = createSlice({
           body,
         },
       ];
+
+      localStorage.setItem('posts', JSON.stringify(state.posts));
     },
     removePost: (state, action) => {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
+      localStorage.setItem('posts', JSON.stringify(state.posts));
     },
   },
 });

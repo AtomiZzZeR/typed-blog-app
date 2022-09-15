@@ -22,14 +22,25 @@ const AddPost: FC = () => {
 
   const [msgError, setMsgError] = useState<string>('');
 
-  const [post, setPost] = useState<IAddPost>({ title: '', body: '' });
+  const [post, setPost] = useState<IAddPost>(
+    JSON.parse(sessionStorage.getItem('postData')!) || { title: '', body: '' }
+  );
 
   const handlePostTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPost({ ...post, title: e.target.value });
+
+    sessionStorage.setItem(
+      'postData',
+      JSON.stringify({ ...post, title: post.title })
+    );
   };
 
   const handlePostBodyChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPost({ ...post, body: e.target.value });
+    sessionStorage.setItem(
+      'postData',
+      JSON.stringify({ ...post, body: post.body })
+    );
   };
 
   const handleAddPostClick = (e: FormEvent) => {
@@ -38,7 +49,6 @@ const AddPost: FC = () => {
     if (post.title === '' && post.body === '') {
       setMsgError('Error! Empty title and post content.');
 
-      //todo Подсветить красным два инпута
       setBorderInputs(['2px solid #ff3333', '2px solid #ff3333']);
 
       return;
@@ -47,7 +57,6 @@ const AddPost: FC = () => {
     if (post.title === '') {
       setMsgError('Error! Empty post title.');
 
-      //todo Подсветить красным первый инпут
       setBorderInputs(['2px solid #ff3333', '2px solid transparent']);
 
       return;
@@ -56,7 +65,6 @@ const AddPost: FC = () => {
     if (post.body === '') {
       setMsgError('Error! Empty post content.');
 
-      //todo Подсветить красным второй инпут
       setBorderInputs(['2px solid transparent', '2px solid #ff3333']);
 
       return;
@@ -73,6 +81,7 @@ const AddPost: FC = () => {
     setIsMessage(true);
 
     setPost({ title: '', body: '' });
+    sessionStorage.setItem('postData', JSON.stringify({ title: '', body: '' }));
 
     setMsgError('');
     setBorderInputs(['2px solid transparent', '2px solid transparent']);

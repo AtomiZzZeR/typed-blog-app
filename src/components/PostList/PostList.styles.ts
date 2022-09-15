@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import EThemeColor from '../../assets/styles/colors/theme';
 
 const Container = styled.div`
   max-width: 1150px;
@@ -9,7 +10,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 1150px;
-  margin: 10px 0px 0px 0px;
   border-radius: 10px;
 `;
 
