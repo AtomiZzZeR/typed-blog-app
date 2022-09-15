@@ -13,6 +13,15 @@ interface IAddPost {
 const AddPost: FC = () => {
   const dispatch = useDispatch();
 
+  const [borderInputs, setBorderInputs] = useState<string[]>([
+    '2px solid transparent',
+    '2px solid transparent',
+  ]);
+
+  const [isMessage, setIsMessage] = useState<boolean>(false);
+
+  const [msgError, setMsgError] = useState<string>('');
+
   const [post, setPost] = useState<IAddPost>({ title: '', body: '' });
 
   const handlePostTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +35,33 @@ const AddPost: FC = () => {
   const handleAddPostClick = (e: FormEvent) => {
     e.preventDefault();
 
+    if (post.title === '' && post.body === '') {
+      setMsgError('Error! Empty title and post content.');
+
+      //todo Подсветить красным два инпута
+      setBorderInputs(['2px solid #ff3333', '2px solid #ff3333']);
+
+      return;
+    }
+
+    if (post.title === '') {
+      setMsgError('Error! Empty post title.');
+
+      //todo Подсветить красным первый инпут
+      setBorderInputs(['2px solid #ff3333', '2px solid transparent']);
+
+      return;
+    }
+
+    if (post.body === '') {
+      setMsgError('Error! Empty post content.');
+
+      //todo Подсветить красным второй инпут
+      setBorderInputs(['2px solid transparent', '2px solid #ff3333']);
+
+      return;
+    }
+
     const newPost = {
       id: uuid(),
       title: post.title,
@@ -34,19 +70,44 @@ const AddPost: FC = () => {
 
     dispatch(PostActionList.addPost(newPost));
 
+    setIsMessage(true);
+
     setPost({ title: '', body: '' });
+
+    setMsgError('');
+    setBorderInputs(['2px solid transparent', '2px solid transparent']);
   };
 
   return (
-    <form action=''>
-      <input
+    <Styled.Form>
+      <Styled.Input
         type={'text'}
+        placeholder={'post title'}
         value={post.title}
         onChange={handlePostTitleChange}
+        onFocus={() => setIsMessage(false)}
+        border={borderInputs[0]}
       />
-      <input type={'text'} value={post.body} onChange={handlePostBodyChange} />
-      <button onClick={handleAddPostClick}>Добавить</button>
-    </form>
+
+      <Styled.Input
+        type={'text'}
+        placeholder={'description title'}
+        value={post.body}
+        onChange={handlePostBodyChange}
+        onFocus={() => setIsMessage(false)}
+        border={borderInputs[1]}
+      />
+
+      {isMessage ? (
+        <Styled.MessagePostAdded>
+          Post successfully added.
+        </Styled.MessagePostAdded>
+      ) : (
+        <Styled.MessageError>{msgError}</Styled.MessageError>
+      )}
+
+      <Styled.Button onClick={handleAddPostClick}>Add Post</Styled.Button>
+    </Styled.Form>
   );
 };
 

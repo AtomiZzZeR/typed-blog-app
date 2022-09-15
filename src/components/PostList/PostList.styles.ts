@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 
+const Container = styled.div`
+  max-width: 1150px;
+  margin: 0px auto;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
-  border: 4px solid #222;
+  width: 1150px;
   margin: 10px 0px 0px 0px;
   border-radius: 10px;
 `;
 
 const StyledPostList = {
+  Container,
   Wrapper,
 };
 

@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Styled from './Page.styles';
 
 const ProfilePage = () => {
-	return (
-		<div>ProfilePage</div>
-	)
-}
+  return <Styled.Wrapper>ProfilePage</Styled.Wrapper>;
+};
 
-export default ProfilePage
+export default ProfilePage;

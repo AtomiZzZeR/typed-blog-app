@@ -28,11 +28,13 @@ const PostList: FC = () => {
   const { posts } = postSelector;
 
   return (
-    <Styled.Wrapper>
-      {posts.map((post: IPost, index: number) => (
-        <PostItem post={post} key={post.id} number={index + 1} />
-      ))}
-    </Styled.Wrapper>
+    <Styled.Container>
+      <Styled.Wrapper>
+        {posts.map((post: IPost, index: number) => (
+          <PostItem post={post} key={post.id} number={index + 1} />
+        ))}
+      </Styled.Wrapper>
+    </Styled.Container>
   );
 };
 

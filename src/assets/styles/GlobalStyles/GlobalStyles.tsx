@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import EThemeColor from '../colors/theme';
 
 const GlobalStyles = createGlobalStyle`
 	* {
@@ -8,19 +9,33 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	html,
-	body {
-		height: 100%;
-	}
-
+	body,
 	#root {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+		height: 100%;
 	}
 
 	body {
 		font-family: Arial, Helvetica, sans-serif;
+		background-color: ${EThemeColor.primaryColor}
 	}
+
+	a {
+		text-decoration: none;
+	}
+
+	input {
+		border: none;
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	button {
+		border: 0;
+		cursor: pointer;
+	}
+	
 `;
 
 export default GlobalStyles;

@@ -1,14 +1,18 @@
-// import axios from 'axios';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { PostList } from '../components/PostList';
-import { PostActionList } from '../feature/post/postSlice';
+import { selectPost } from '../feature/post/postSlice';
+import Styled from './Page.styles';
 
 const HomePage = () => {
+  const postSelector = useSelector(selectPost);
+
+  const { posts } = postSelector;
+
   return (
-    <div>
-      <PostList />
-    </div>
+    <Styled.Wrapper>
+      {posts.length ? <PostList /> : <div>Посты не найдены</div>}
+    </Styled.Wrapper>
   );
 };
 

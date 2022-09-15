@@ -1,7 +1,8 @@
 import React from 'react';
+import Styled from './Page.styles';
 
 const NotFoundPage = () => {
-  return <div>NotFoundPage</div>;
+  return <Styled.Wrapper>NotFoundPage</Styled.Wrapper>;
 };
 
 export default NotFoundPage;

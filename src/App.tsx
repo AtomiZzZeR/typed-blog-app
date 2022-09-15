@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
@@ -7,7 +7,7 @@ import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import Layout from './components/Layout/Layout';
 
-const App = () => {
+const App: FC = () => {
   return (
     <>
       <Routes>
