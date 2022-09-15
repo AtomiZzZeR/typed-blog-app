@@ -1,41 +1,23 @@
-// import axios from 'axios';
-import React, { useState, FormEvent, ChangeEvent } from 'react';
-import { PostList } from './components/PostList';
-import { IPost } from './components/types/typex';
-import { v4 as uuid } from 'uuid';
-import { AddPost } from './components/AddPost';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import HomePage from './pages/HomePage';
+import AddPostPage from './pages/AddPostPage';
+import ProfilePage from './pages/ProfilePage';
+import NotFoundPage from './pages/NotFoundPage';
+import Layout from './components/Layout/Layout';
 
 const App = () => {
-  const [posts, setPosts] = useState<IPost[]>([
-    { userId: 1, id: uuid(), title: 'post 1', body: 'description...' },
-    { userId: 2, id: uuid(), title: 'post 2', body: 'description...' },
-    { userId: 3, id: uuid(), title: 'post 3', body: 'description...' },
-  ]);
-
-  // Получение постов с сервера:
-  //-----------------------------------------------------------
-  // const [posts, setPosts] = useState<IPost[]>([]);
-
-  // useEffect(() => {
-  //   getPostsFromServer();
-  // }, []);
-
-  // async function getPostsFromServer() {
-  //   const response = await axios.get<IPost[]>(
-  //     'https://jsonplaceholder.typicode.com/posts'
-  //   );
-  //   setPosts(response.data);
-  // }
-  //------------------------------------------------------------
-
-  const addPost = (newPost: IPost) => {
-    setPosts([...posts, newPost]);
-  };
-
   return (
     <>
-      <PostList posts={posts} />
-      <AddPost addPost={addPost} />
+      <Routes>
+        <Route path={'/'} element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path={'addPost'} element={<AddPostPage />} />
+          <Route path={'profile'} element={<ProfilePage />} />
+          <Route path={'*'} element={<NotFoundPage />} />
+        </Route>
+      </Routes>
     </>
   );
 };

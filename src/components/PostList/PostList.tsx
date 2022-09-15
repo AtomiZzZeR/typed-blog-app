@@ -1,16 +1,35 @@
+// import axios from 'axios';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { selectPost } from '../../feature/post/postSlice';
 import { PostItem } from '../PostItem';
 import { IPost } from '../types/typex';
 import Styled from './PostList.styles';
 
-interface IPostListProps {
-  posts: IPost[];
-}
+const PostList: FC = () => {
+  // Получение постов с сервера:
+  //-----------------------------------------------------------
+  // const [posts, setPosts] = useState<IPost[]>([]);
 
-const PostList: FC<IPostListProps> = ({ posts }) => {
+  // useEffect(() => {
+  //   getPostsFromServer();
+  // }, []);
+
+  // async function getPostsFromServer() {
+  //   const response = await axios.get<IPost[]>(
+  //     'https://jsonplaceholder.typicode.com/posts'
+  //   );
+  //   setPosts(response.data);
+  // }
+  //------------------------------------------------------------
+
+  const postSelector = useSelector(selectPost);
+
+  const { posts } = postSelector;
+
   return (
     <Styled.Wrapper>
-      {posts.map((post, index) => (
+      {posts.map((post: IPost, index: number) => (
         <PostItem post={post} key={post.id} number={index + 1} />
       ))}
     </Styled.Wrapper>

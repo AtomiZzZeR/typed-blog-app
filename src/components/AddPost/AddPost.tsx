@@ -2,17 +2,17 @@ import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import Styled from './AddPost.styles';
 import { v4 as uuid } from 'uuid';
 import { IPost } from '../types/typex';
-
-interface IAddPostProps {
-  addPost: (newPost: IPost) => void;
-}
+import { useDispatch } from 'react-redux';
+import { PostActionList } from '../../feature/post/postSlice';
 
 interface IAddPost {
   title: string;
   body: string;
 }
 
-const AddPost: FC<IAddPostProps> = ({ addPost }) => {
+const AddPost: FC = () => {
+  const dispatch = useDispatch();
+
   const [post, setPost] = useState<IAddPost>({ title: '', body: '' });
 
   const handlePostTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +27,12 @@ const AddPost: FC<IAddPostProps> = ({ addPost }) => {
     e.preventDefault();
 
     const newPost = {
-      userId: 999,
       id: uuid(),
       title: post.title,
       body: post.body,
     };
 
-    addPost(newPost);
+    dispatch(PostActionList.addPost(newPost));
 
     setPost({ title: '', body: '' });
   };
