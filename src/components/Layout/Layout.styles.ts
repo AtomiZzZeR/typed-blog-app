@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import EThemeColor from '../../assets/styles/colors/theme';
 
+const Wrapper = styled.div`
+  position: relative;
+`;
+
 const Container = styled.div`
   max-width: 1150px;
   margin: 0px auto;
@@ -34,11 +38,24 @@ const TextLink = styled.span`
   }
 `;
 
+const GlobalWindow = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const StyledLayout = {
+  Wrapper,
   Container,
   Header,
   Link,
   TextLink,
+  GlobalWindow,
 };
 
 export default StyledLayout;

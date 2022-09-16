@@ -34,7 +34,22 @@ const FormEditPost: FC<IFormIdetPostProps> = ({
   const handleEditPostClick = (e: FormEvent): void => {
     e.preventDefault();
 
-    sendPostData({ title: postData.title, body: postData.body });
+    const postTitle = postData.title;
+    const postBody = postData.body;
+
+    if (postTitle === '' && postBody === '') {
+      return;
+    }
+
+    if (postTitle === '') {
+      return;
+    }
+
+    if (postBody === '') {
+      return;
+    }
+
+    sendPostData({ title: postTitle, body: postBody });
 
     closeFormEditPost();
   };

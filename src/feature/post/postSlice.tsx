@@ -4,11 +4,15 @@ import { IPost } from '../../components/types/typex';
 interface IInitialState {
   posts: IPost[];
   idEditablePost: string;
+  isWindow: boolean;
+  isButtonConfirmDeletePost: boolean;
 }
 
 const initialState: IInitialState = {
   posts: [],
   idEditablePost: '',
+  isWindow: false,
+  isButtonConfirmDeletePost: false,
 };
 
 const postSlice = createSlice({
@@ -55,6 +59,15 @@ const postSlice = createSlice({
     removePost: (state, { payload: postId }) => {
       state.posts = state.posts.filter((post) => post.id !== postId);
       localStorage.setItem('posts', JSON.stringify(state.posts));
+    },
+    displayWindow: (state) => {
+      state.isWindow = true;
+    },
+    removeWindow: (state) => {
+      state.isWindow = false;
+    },
+    activeConfirmDeletePost: (state) => {
+      state.isButtonConfirmDeletePost = true;
     },
   },
 });
