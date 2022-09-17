@@ -27,7 +27,7 @@ const Link = styled.div``;
 const TextLink = styled.span`
   color: ${EThemeColor.primaryColor};
   font-size: 2em;
-  padding: 7px 14px;
+  padding: 7px 10px;
   border-radius: 100px;
   transition: 0.4s;
 
@@ -35,6 +35,14 @@ const TextLink = styled.span`
     color: ${EThemeColor.accentColor};
     background-color: ${EThemeColor.primaryColor};
   }
+`;
+
+const TextAddPost = styled(TextLink)`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  border: 5px solid ${EThemeColor.primaryColor};
 `;
 
 const GlobalWindow = styled.div`
@@ -54,6 +62,7 @@ const StyledLayout = {
   Header,
   Link,
   TextLink,
+  TextAddPost,
   GlobalWindow,
 };
 

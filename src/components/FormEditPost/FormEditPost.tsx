@@ -1,5 +1,5 @@
 import React, { useState, FormEvent, FC, ChangeEvent } from 'react';
-import { IPost } from '../types/typex';
+import { IPost } from '../types/types';
 import Styled from './FormEditPost.styles';
 
 interface IPostData {

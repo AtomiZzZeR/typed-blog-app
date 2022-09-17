@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IComment, IPost } from '../../components/types/typex';
+import { IComment, IPost } from '../../components/types/types';
 
 interface IInitialState {
-  commentList: IComment[];
+  currentCommentId: string;
   isFormAddComment: boolean;
-  currentPostId: string;
 }
 
 const initialState: IInitialState = {
-  commentList: [],
+  currentCommentId: '',
   isFormAddComment: false,
-  currentPostId: '',
 };
 
 const commentSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
+    setCurrentCommentId: (state, { payload: commentId }) => {
+      state.currentCommentId = commentId;
+    },
     openFormAddComment: (state) => {
       state.isFormAddComment = true;
     },

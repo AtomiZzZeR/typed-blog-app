@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostActionList, selectPost } from '../../feature/post/postSlice';
 import { FormEditPost } from '../FormEditPost';
-import { IPost } from '../types/typex';
+import { IPost } from '../types/types';
 import Styled from './PostItem.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,12 +11,12 @@ import {
   faHeart,
   faCommentDots,
 } from '@fortawesome/free-solid-svg-icons';
-import { FormAddComment } from '../FormAddComment';
+import { AddComment } from '../AddComment';
 import {
   commentActionList,
   selectComment,
 } from '../../feature/comment/commentSlice';
-import { CommentItem } from '../CommentItem';
+import { CommentList } from '../CommentList';
 
 interface IPostItemProps {
   post: IPost;
@@ -28,7 +28,7 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   const postSelector = useSelector(selectPost);
 
-  const { postList, currentPostId } = postSelector;
+  const { currentPostId } = postSelector;
 
   const commentSelector = useSelector(selectComment);
 
@@ -135,18 +135,13 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
       </Styled.Post>
 
       <Styled.MessageComments>Comments:</Styled.MessageComments>
-      {isFormAddComment && currentPostId === post.id ? (
-        <FormAddComment postId={currentPostId} />
-      ) : null}
-
-      {/* {commentList.length ? (
-        <CommentList commentList={} />
-      ) : (
-        <div style={{ color: '#fff' }}>Comments not found</div>
-      )} */}
 
       {post.commentList!.length ? (
-        <CommentItem commentList={post.commentList!} />
+        <CommentList commentList={post.commentList!} postId={post.id} />
+      ) : null}
+
+      {isFormAddComment && currentPostId === post.id ? (
+        <AddComment postId={currentPostId} />
       ) : null}
     </Styled.Wrapper>
   );

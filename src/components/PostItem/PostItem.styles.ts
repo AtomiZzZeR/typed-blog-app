@@ -54,11 +54,6 @@ const ButtonEdit = styled.button`
   }
 `;
 
-const FormEditPostData = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
 const ButtonDelete = styled.button`
   position: absolute;
   top: 13px;
@@ -151,7 +146,6 @@ const StyledPostItem = {
   Title,
   Content,
   ButtonEdit,
-  FormEditPostData,
   ButtonDelete,
   WindowConfirmationDelete,
   BoxForSystemLike,

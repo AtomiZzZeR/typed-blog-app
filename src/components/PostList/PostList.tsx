@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { selectPost } from '../../feature/post/postSlice';
 import { PostItem } from '../PostItem';
-import { IPost } from '../types/typex';
+import { IPost } from '../types/types';
 import Styled from './PostList.styles';
 
 const PostList: FC = () => {

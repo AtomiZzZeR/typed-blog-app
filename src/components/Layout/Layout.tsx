@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { selectPost } from '../../feature/post/postSlice';
-import { FormConfirmationDelete } from '../FormConfirmationDelete';
 import Styled from './Layout.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { ConfirmDelete } from '../ConfirmDelete';
 
 const Layout = () => {
   const postSelector = useSelector(selectPost);
@@ -21,7 +23,12 @@ const Layout = () => {
 
           <Styled.Link>
             <Link to={'/addPost'}>
-              <Styled.TextLink>AddPost+</Styled.TextLink>
+              <Styled.TextAddPost>
+                <span>AddPost</span>
+                <b>
+                  <FontAwesomeIcon icon={faCirclePlus}></FontAwesomeIcon>
+                </b>
+              </Styled.TextAddPost>
             </Link>
           </Styled.Link>
 
@@ -37,11 +44,9 @@ const Layout = () => {
 
       {isWindow ? (
         <Styled.GlobalWindow>
-          <FormConfirmationDelete />
+          <ConfirmDelete />
         </Styled.GlobalWindow>
       ) : null}
-
-			
     </Styled.Wrapper>
   );
 };

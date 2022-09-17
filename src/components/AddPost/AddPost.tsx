@@ -83,6 +83,7 @@ const AddPost: FC = () => {
       title: post.title,
       body: post.body,
       creationDate: Date.now(),
+      commentList: [],
     };
 
     dispatch(PostActionList.addPost(newPost));

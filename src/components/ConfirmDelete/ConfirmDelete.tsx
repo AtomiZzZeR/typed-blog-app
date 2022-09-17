@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { PostActionList, selectPost } from '../../feature/post/postSlice';
-import Styled from './FormConfirmationDelete.styles';
+import Styled from './ConfirmDelete.styles';
 
-const FormConfirmationDelete: FC = () => {
+const ConfirmDelete: FC = () => {
   const dispatch = useDispatch();
 
   const postSelector = useSelector(selectPost);
@@ -33,4 +33,4 @@ const FormConfirmationDelete: FC = () => {
   );
 };
 
-export default FormConfirmationDelete;
+export default ConfirmDelete;

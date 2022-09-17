@@ -47,11 +47,11 @@ const Button = styled.button`
   }
 `;
 
-const StyledFormConfirmationDelete = {
+const StyledConfirmDelete = {
   Wrapper,
   Message,
   BoxForButtons,
   Button,
 };
 
-export default StyledFormConfirmationDelete;
+export default StyledConfirmDelete;

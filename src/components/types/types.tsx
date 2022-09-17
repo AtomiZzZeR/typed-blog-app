@@ -3,7 +3,7 @@ export interface IPost {
   title: string;
   body: string;
   creationDate: number;
-  commentList?: IComment[];
+  commentList: IComment[];
 }
 
 export interface IComment {
