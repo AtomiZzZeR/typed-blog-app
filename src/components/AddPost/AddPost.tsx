@@ -1,32 +1,40 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import Styled from './AddPost.styles';
 import { v4 as uuid } from 'uuid';
-import { IPost } from '../types/typex';
 import { useDispatch } from 'react-redux';
 import { PostActionList } from '../../feature/post/postSlice';
 
-interface IAddPost {
+interface IAddPostState {
   title: string;
   body: string;
+}
+
+enum EBorderInputs {
+  default = '2px solid transparent',
+  error = '2px solid #ff3333',
 }
 
 const AddPost: FC = () => {
   const dispatch = useDispatch();
 
-  const [borderInputs, setBorderInputs] = useState<string[]>([
-    '2px solid transparent',
-    '2px solid transparent',
-  ]);
-
-  const [isMessage, setIsMessage] = useState<boolean>(false);
-
-  const [msgError, setMsgError] = useState<string>('');
-
-  const [post, setPost] = useState<IAddPost>(
-    JSON.parse(sessionStorage.getItem('postData')!) || { title: '', body: '' }
+  const [post, setPost] = useState<IAddPostState>(
+    JSON.parse(sessionStorage.getItem('postData') as string) || {
+      title: '',
+      body: '',
+    }
   );
 
-  const handlePostTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const [borderInputs, setBorderInputs] = useState<[string, string]>([
+    EBorderInputs.default,
+    EBorderInputs.default,
+  ]);
+
+  const [messageValidate, setMessageValidate] = useState<string>('');
+
+  const [colorMessageValidate, setColorMessageValidate] =
+    useState<string>('#ff3333');
+
+  const handlePostTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPost({ ...post, title: e.target.value });
 
     sessionStorage.setItem(
@@ -35,7 +43,7 @@ const AddPost: FC = () => {
     );
   };
 
-  const handlePostBodyChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handlePostBodyChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPost({ ...post, body: e.target.value });
     sessionStorage.setItem(
       'postData',
@@ -43,29 +51,29 @@ const AddPost: FC = () => {
     );
   };
 
-  const handleAddPostClick = (e: FormEvent) => {
+  const handleAddPostClick = (e: FormEvent): void => {
     e.preventDefault();
 
     if (post.title === '' && post.body === '') {
-      setMsgError('Error! Empty title and post content.');
+      setMessageValidate('Error! Empty title and post content.');
 
-      setBorderInputs(['2px solid #ff3333', '2px solid #ff3333']);
+      setBorderInputs([EBorderInputs.error, EBorderInputs.error]);
 
       return;
     }
 
     if (post.title === '') {
-      setMsgError('Error! Empty post title.');
+      setMessageValidate('Error! Empty post title.');
 
-      setBorderInputs(['2px solid #ff3333', '2px solid transparent']);
+      setBorderInputs([EBorderInputs.error, EBorderInputs.default]);
 
       return;
     }
 
     if (post.body === '') {
-      setMsgError('Error! Empty post content.');
+      setMessageValidate('Error! Empty post content.');
 
-      setBorderInputs(['2px solid transparent', '2px solid #ff3333']);
+      setBorderInputs([EBorderInputs.default, EBorderInputs.error]);
 
       return;
     }
@@ -74,18 +82,26 @@ const AddPost: FC = () => {
       id: uuid(),
       title: post.title,
       body: post.body,
-      creationDate: Date.now(	),
+      creationDate: Date.now(),
     };
 
     dispatch(PostActionList.addPost(newPost));
 
-    setIsMessage(true);
+    setColorMessageValidate('#47a76a');
+
+    setMessageValidate('Post added successfully.');
+
+    setBorderInputs([EBorderInputs.default, EBorderInputs.default]);
 
     setPost({ title: '', body: '' });
     sessionStorage.setItem('postData', JSON.stringify({ title: '', body: '' }));
+  };
 
-    setMsgError('');
-    setBorderInputs(['2px solid transparent', '2px solid transparent']);
+  const handleCloseMessage = (): void => {
+    if (messageValidate === 'Post added successfully.') {
+      setMessageValidate('');
+      setColorMessageValidate('#ff3333');
+    }
   };
 
   return (
@@ -94,27 +110,23 @@ const AddPost: FC = () => {
         type={'text'}
         placeholder={'post title'}
         value={post.title}
-        onChange={handlePostTitleChange}
-        onFocus={() => setIsMessage(false)}
         border={borderInputs[0]}
+        onChange={handlePostTitleChange}
+        onFocus={handleCloseMessage}
       />
 
       <Styled.Input
         type={'text'}
         placeholder={'description title'}
         value={post.body}
-        onChange={handlePostBodyChange}
-        onFocus={() => setIsMessage(false)}
         border={borderInputs[1]}
+        onChange={handlePostBodyChange}
+        onFocus={handleCloseMessage}
       />
 
-      {isMessage ? (
-        <Styled.MessagePostAdded>
-          Post successfully added.
-        </Styled.MessagePostAdded>
-      ) : (
-        <Styled.MessageError>{msgError}</Styled.MessageError>
-      )}
+      <Styled.MessageValidate colorMessage={colorMessageValidate}>
+        {messageValidate}
+      </Styled.MessageValidate>
 
       <Styled.Button onClick={handleAddPostClick}>Add Post</Styled.Button>
     </Styled.Form>

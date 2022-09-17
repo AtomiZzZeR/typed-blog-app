@@ -6,18 +6,21 @@ interface IButtonLikeProps {
   background: string;
 }
 
-interface IStyleLike {
-  colorLike: string;
-  background: string;
-}
+// interface IStyleLike {
+//   colorLike: string;
+//   background: string;
+// }
 
 const Wrapper = styled.div`
+  margin: 0px 0px 70px 0px;
+`;
+
+const Post = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  font-weight: bold;
-  height: 150px;
+  height: 300px;
   color: ${EThemeColor.fontColor};
   border: 2px solid ${EThemeColor.accentColor};
   border-radius: 30px;
@@ -79,8 +82,8 @@ const WindowConfirmationDelete = styled.div`
 
 const BoxForSystemLike = styled.div`
   position: absolute;
-  left: 10px;
-  bottom: 10px;
+  left: 13px;
+  bottom: 13px;
   display: flex;
   align-items: center;
 `;
@@ -116,8 +119,35 @@ const CountLike = styled.div`
   border-radius: 0px 10px 10px 0px;
 `;
 
+const ButtonOpenFormAddComment = styled.button`
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+  width: 50px;
+  height: 50px;
+  font-size: 1.9em;
+  color: ${EThemeColor.accentColor};
+  background-color: ${EThemeColor.primaryColor};
+  border: 3px solid ${EThemeColor.accentColor};
+  border-radius: 10px 10px 20px 10px;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const MessageComments = styled.div`
+  color: #fff;
+  margin: 15px 0px 0px 20px;
+  padding: 5px;
+  font-size: 1.2em;
+  border-bottom: 2px solid ${EThemeColor.accentColor};
+  width: 115px;
+`;
+
 const StyledPostItem = {
   Wrapper,
+  Post,
   Title,
   Content,
   ButtonEdit,
@@ -127,6 +157,8 @@ const StyledPostItem = {
   BoxForSystemLike,
   ButtonLike,
   CountLike,
+  ButtonOpenFormAddComment,
+  MessageComments,
 };
 
 export default StyledPostItem;

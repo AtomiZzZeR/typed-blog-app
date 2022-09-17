@@ -15,6 +15,7 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
+		font-weight: bold;
 		font-family: Arial, Helvetica, sans-serif;
 		background-color: ${EThemeColor.primaryColor}
 	}
@@ -24,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	input {
+		font-weight: bold;
 		border: none;
 
 		&:focus {
@@ -32,7 +34,8 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	button {
-		border: 0;
+		font-weight: bold;
+		border: none;
 		cursor: pointer;
 	}
 	

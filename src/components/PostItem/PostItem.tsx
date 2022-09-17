@@ -1,19 +1,26 @@
-import React, { FC, useState, FormEvent } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostActionList, selectPost } from '../../feature/post/postSlice';
-import { FormConfirmationDelete } from '../FormConfirmationDelete';
 import { FormEditPost } from '../FormEditPost';
 import { IPost } from '../types/typex';
 import Styled from './PostItem.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPenToSquare,
+  faCircleXmark,
+  faHeart,
+  faCommentDots,
+} from '@fortawesome/free-solid-svg-icons';
+import { FormAddComment } from '../FormAddComment';
+import {
+  commentActionList,
+  selectComment,
+} from '../../feature/comment/commentSlice';
+import { CommentItem } from '../CommentItem';
 
 interface IPostItemProps {
   post: IPost;
   number: number;
-}
-
-interface IStyleLike {
-  colorLike: string;
-  background: string;
 }
 
 const PostItem: FC<IPostItemProps> = ({ post, number }) => {
@@ -21,7 +28,11 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   const postSelector = useSelector(selectPost);
 
-  const { idEditablePost } = postSelector;
+  const { postList, currentPostId } = postSelector;
+
+  const commentSelector = useSelector(selectComment);
+
+  const { isFormAddComment } = commentSelector;
 
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
 
@@ -44,6 +55,7 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   const handleRemovePostClick = () => {
     dispatch(PostActionList.setCurrentPostId(post.id));
+
     dispatch(PostActionList.displayWindow());
   };
 
@@ -71,43 +83,71 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
     });
   };
 
+  const handleOpenFormAddCommentClick = () => {
+    dispatch(PostActionList.setCurrentPostId(post.id));
+
+    dispatch(commentActionList.openFormAddComment());
+  };
+
   return (
     <Styled.Wrapper>
-      <Styled.Title>
-        {number}. {post.title}
-      </Styled.Title>
+      <Styled.Post>
+        <Styled.Title>
+          {number}. {post.title}
+        </Styled.Title>
 
-      <Styled.Content>{post.body}</Styled.Content>
+        <Styled.Content>{post.body}</Styled.Content>
 
-      {isFormEdit && idEditablePost === post.id ? (
-        <FormEditPost
-          post={post}
-          sendPostData={handleEditPostData}
-          closeFormEditPost={closeFormEditPost}
-        />
+        {isFormEdit && currentPostId === post.id ? (
+          <FormEditPost
+            post={post}
+            sendPostData={handleEditPostData}
+            closeFormEditPost={closeFormEditPost}
+          />
+        ) : null}
+
+        {isFormEdit && currentPostId === post.id ? null : (
+          <Styled.ButtonEdit onClick={handleOpenFormEditPostClick}>
+            <FontAwesomeIcon icon={faPenToSquare} />
+          </Styled.ButtonEdit>
+        )}
+
+        <Styled.ButtonDelete onClick={handleRemovePostClick}>
+          <FontAwesomeIcon icon={faCircleXmark} />
+        </Styled.ButtonDelete>
+
+        <Styled.BoxForSystemLike>
+          <Styled.ButtonLike
+            onClick={handleLikeClick}
+            color={styleLike.color}
+            background={styleLike.background}
+          >
+            <FontAwesomeIcon icon={faHeart} />
+          </Styled.ButtonLike>
+          <Styled.CountLike>{like}</Styled.CountLike>
+        </Styled.BoxForSystemLike>
+
+        <Styled.ButtonOpenFormAddComment
+          onClick={handleOpenFormAddCommentClick}
+        >
+          <FontAwesomeIcon icon={faCommentDots} />
+        </Styled.ButtonOpenFormAddComment>
+      </Styled.Post>
+
+      <Styled.MessageComments>Comments:</Styled.MessageComments>
+      {isFormAddComment && currentPostId === post.id ? (
+        <FormAddComment postId={currentPostId} />
       ) : null}
 
-      {isFormEdit && idEditablePost === post.id ? null : (
-        <Styled.ButtonEdit
-          onClick={handleOpenFormEditPostClick}
-          className={'fa-solid fa-pen-to-square'}
-        />
-      )}
+      {/* {commentList.length ? (
+        <CommentList commentList={} />
+      ) : (
+        <div style={{ color: '#fff' }}>Comments not found</div>
+      )} */}
 
-      <Styled.ButtonDelete
-        onClick={handleRemovePostClick}
-        className={'fa-solid fa-circle-xmark'}
-      />
-
-      <Styled.BoxForSystemLike>
-        <Styled.ButtonLike
-          className={'fa-solid fa-heart'}
-          onClick={handleLikeClick}
-          color={styleLike.color}
-          background={styleLike.background}
-        />
-        <Styled.CountLike>{like}</Styled.CountLike>
-      </Styled.BoxForSystemLike>
+      {post.commentList!.length ? (
+        <CommentItem commentList={post.commentList!} />
+      ) : null}
     </Styled.Wrapper>
   );
 };

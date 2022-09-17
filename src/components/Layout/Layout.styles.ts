@@ -26,7 +26,6 @@ const Link = styled.div``;
 
 const TextLink = styled.span`
   color: ${EThemeColor.primaryColor};
-  font-weight: bold;
   font-size: 2em;
   padding: 7px 14px;
   border-radius: 100px;

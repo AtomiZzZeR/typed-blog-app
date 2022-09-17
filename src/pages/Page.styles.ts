@@ -14,7 +14,6 @@ const Wrapper = styled.div`
 const TitlePostList = styled.div`
   width: 330px;
   margin: 30px auto;
-  font-weight: bold;
   font-size: 3em;
   text-align: center;
   text-transform: uppercase;
@@ -24,7 +23,6 @@ const TitlePostList = styled.div`
 `;
 
 const MessagePostsNotFound = styled.div`
-  font-weight: bold;
   font-size: 2em;
   color: ${EThemeColor.fontColor};
   text-align: center;

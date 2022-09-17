@@ -4,11 +4,11 @@ import EThemeColor from '../../assets/styles/colors/theme';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  padding: 20px;
+  padding: 15px;
   width: 400px;
-  height: 300px;
+  height: 210px;
   border: 4px solid ${EThemeColor.accentColor};
   background-color: ${EThemeColor.primaryColor};
   border-radius: 40px;
@@ -16,21 +16,35 @@ const Wrapper = styled.div`
 `;
 
 const Message = styled.div`
-  font-weight: bold;
   font-size: 1.5em;
   color: #fff;
+  text-align: center;
 `;
 
 const BoxForButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 180px;
+  width: 265px;
 `;
 
 const Button = styled.button`
-  font-weight: bold;
+  color: #fff;
   font-size: 1.5em;
-  padding: 5px;
+  padding: 5px 10px;
+  background-color: ${EThemeColor.primaryColor};
+  border: 2px solid ${EThemeColor.accentColor};
+  border-radius: 100px;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    background-color: ${EThemeColor.accentColor};
+    box-shadow: 0px 0px 30px 1px ${EThemeColor.accentColor};
+  }
+
+  &:active {
+    transform: scale(1.2);
+  }
 `;
 
 const StyledFormConfirmationDelete = {

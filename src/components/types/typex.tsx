@@ -1,6 +1,13 @@
 export interface IPost {
-  id: number | string;
+  id: string;
   title: string;
+  body: string;
+  creationDate: number;
+  commentList?: IComment[];
+}
+
+export interface IComment {
+  id: string;
   body: string;
   creationDate: number;
 }

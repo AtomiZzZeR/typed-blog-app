@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 import { selectPost } from '../../feature/post/postSlice';
 import { FormConfirmationDelete } from '../FormConfirmationDelete';
@@ -22,7 +21,7 @@ const Layout = () => {
 
           <Styled.Link>
             <Link to={'/addPost'}>
-              <Styled.TextLink>AddPost</Styled.TextLink>
+              <Styled.TextLink>AddPost+</Styled.TextLink>
             </Link>
           </Styled.Link>
 
@@ -41,6 +40,8 @@ const Layout = () => {
           <FormConfirmationDelete />
         </Styled.GlobalWindow>
       ) : null}
+
+			
     </Styled.Wrapper>
   );
 };

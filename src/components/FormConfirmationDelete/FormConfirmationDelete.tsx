@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { PostActionList, selectPost } from '../../feature/post/postSlice';
-import { IPost } from '../types/typex';
 import Styled from './FormConfirmationDelete.styles';
 
 const FormConfirmationDelete: FC = () => {
@@ -10,17 +9,16 @@ const FormConfirmationDelete: FC = () => {
 
   const postSelector = useSelector(selectPost);
 
-  const { idEditablePost } = postSelector;
-
-  console.log(idEditablePost);
+  const { currentPostId } = postSelector;
 
   const handleConfirmDeletePost = () => {
-    dispatch(PostActionList.removePost(idEditablePost));
-    dispatch(PostActionList.removeWindow());
+    dispatch(PostActionList.deletePost(currentPostId));
+
+    dispatch(PostActionList.closeWindow());
   };
 
   const handleCancelDeletePost = () => {
-    dispatch(PostActionList.removeWindow());
+    dispatch(PostActionList.closeWindow());
   };
 
   return (

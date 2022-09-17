@@ -26,14 +26,14 @@ const PostList: FC = () => {
 
   const postSelector = useSelector(selectPost);
 
-  const { posts } = postSelector;
+  const { postList } = postSelector;
 
-  const sortedPosts = _.sortBy(posts, 'creationDate');
+  const sortedPostList = _.sortBy(postList, 'creationDate');
 
   return (
     <Styled.Container>
       <Styled.Wrapper>
-        {sortedPosts.map((post: IPost, index: number) => (
+        {sortedPostList.map((post: IPost, index: number) => (
           <PostItem post={post} key={post.id} number={index + 1} />
         ))}
       </Styled.Wrapper>

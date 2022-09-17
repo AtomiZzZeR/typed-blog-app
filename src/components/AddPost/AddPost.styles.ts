@@ -5,15 +5,18 @@ interface IInput {
   border: string;
 }
 
+interface IMessageValidate {
+  colorMessage: string;
+}
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 600px;
-  height: 290px;
+  height: 310px;
   margin: 140px 0px 0px 0px;
-  padding: 30px 0px 0px 0px;
-  font-weight: bold;
+  padding: 45px 0px 0px 0px;
   border: 4px dashed ${EThemeColor.accentColor};
   border-radius: 50px;
 `;
@@ -21,42 +24,43 @@ const Form = styled.form`
 const Input = styled.input<IInput>`
   margin: 0px 0px 27px 0px;
   padding: 5px 15px;
-  font-weight: bold;
   font-size: 1.8em;
   color: ${EThemeColor.primaryColor};
-  border-radius: 100px;
   border: ${(props) => props.border};
+  border-radius: 100px;
 `;
 
-const ResultMessage = styled.div`
+const MessageValidate = styled.div<IMessageValidate>`
   height: 10px;
-  font-size: 1.3em;
   margin: -5px 0px 30px 0px;
-`;
-
-const MessagePostAdded = styled(ResultMessage)`
-  color: #47a76a;
-`;
-
-const MessageError = styled(ResultMessage)`
-  color: #ff3333;
+  font-size: 1.3em;
+  color: ${(props) => props.colorMessage};
 `;
 
 const Button = styled.button`
-  color: ${EThemeColor.primaryColor};
-  background-color: ${EThemeColor.accentColor};
   padding: 5px 10px;
-  font-weight: bold;
-  font-size: 1.6em;
+  font-size: 1.8em;
+  color: #fff;
+  background-color: ${EThemeColor.primaryColor};
+  border: 4px solid ${EThemeColor.accentColor};
   border-radius: 100px;
+  transition: 0.2s;
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 0px 20px 3px ${EThemeColor.accentColor};
+    background-color: ${EThemeColor.accentColor};
+  }
+
+  &:active {
+    transform: scale(1.1);
+  }
 `;
 
 const StyledAddPost = {
   Form,
   Input,
-  ResultMessage,
-  MessagePostAdded,
-  MessageError,
+  MessageValidate,
   Button,
 };
 

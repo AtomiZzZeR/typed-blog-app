@@ -13,7 +13,7 @@ const App: FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(PostActionList.addPosts());
+    dispatch(PostActionList.addPostList());
   }, []);
 
   return (
