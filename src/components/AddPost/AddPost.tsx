@@ -3,10 +3,12 @@ import Styled from './AddPost.styles';
 import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { PostActionList } from '../../feature/post/postSlice';
+import { useSelector } from 'react-redux';
+import { selectAuth } from '../../feature/auth/authSlice';
 
 interface IAddPostState {
   title: string;
-  body: string;
+  description: string;
 }
 
 enum EBorderInputs {
@@ -17,10 +19,13 @@ enum EBorderInputs {
 const AddPost: FC = () => {
   const dispatch = useDispatch();
 
+  const authSelector = useSelector(selectAuth);
+  const { currentUserId: userId } = authSelector;
+
   const [post, setPost] = useState<IAddPostState>(
     JSON.parse(sessionStorage.getItem('postData') as string) || {
       title: '',
-      body: '',
+      description: '',
     }
   );
 
@@ -43,18 +48,18 @@ const AddPost: FC = () => {
     );
   };
 
-  const handlePostBodyChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPost({ ...post, body: e.target.value });
+  const handlePostdescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPost({ ...post, description: e.target.value });
     sessionStorage.setItem(
       'postData',
-      JSON.stringify({ ...post, body: e.target.value })
+      JSON.stringify({ ...post, description: e.target.value })
     );
   };
 
   const handleAddPostClick = (e: FormEvent): void => {
     e.preventDefault();
 
-    if (post.title === '' && post.body === '') {
+    if (post.title === '' && post.description === '') {
       setMessageValidate('Error! Empty title and post content.');
 
       setBorderInputs([EBorderInputs.error, EBorderInputs.error]);
@@ -70,7 +75,7 @@ const AddPost: FC = () => {
       return;
     }
 
-    if (post.body === '') {
+    if (post.description === '') {
       setMessageValidate('Error! Empty post content.');
 
       setBorderInputs([EBorderInputs.default, EBorderInputs.error]);
@@ -79,11 +84,13 @@ const AddPost: FC = () => {
     }
 
     const newPost = {
+      userId,
       id: uuid(),
       title: post.title,
-      body: post.body,
+      description: post.description,
       creationDate: Date.now(),
       commentList: [],
+      likeList: [],
     };
 
     dispatch(PostActionList.addPost(newPost));
@@ -94,8 +101,8 @@ const AddPost: FC = () => {
 
     setBorderInputs([EBorderInputs.default, EBorderInputs.default]);
 
-    setPost({ title: '', body: '' });
-    sessionStorage.setItem('postData', JSON.stringify({ title: '', body: '' }));
+    setPost({ title: '', description: '' });
+    sessionStorage.setItem('postData', JSON.stringify({ title: '', description: '' }));
   };
 
   const handleCloseMessage = (): void => {
@@ -119,9 +126,9 @@ const AddPost: FC = () => {
       <Styled.Input
         type={'text'}
         placeholder={'description title'}
-        value={post.body}
+        value={post.description}
         border={borderInputs[1]}
-        onChange={handlePostBodyChange}
+        onChange={handlePostdescriptionChange}
         onFocus={handleCloseMessage}
       />
 

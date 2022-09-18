@@ -14,6 +14,14 @@ const Wrapper = styled.div`
   border-radius: 13px;
 `;
 
+const UserId = styled.div`
+  position: absolute;
+`;
+
+const Description = styled.div`
+  margin: 0px 0px 0px 100px;
+`;
+
 const ButtonStyles = css`
   position: absolute;
   top: 13px;
@@ -46,6 +54,8 @@ const ButtonDelete = styled.button`
 
 const StyledCommentItem = {
   Wrapper,
+  UserId,
+  Description,
   ButtonEdit,
   ButtonDelete,
 };

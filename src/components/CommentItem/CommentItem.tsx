@@ -1,5 +1,5 @@
-import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PostActionList } from '../../feature/post/postSlice';
 import { IComment } from '../types/types';
 import Styled from './CommentItem.styles';
@@ -13,7 +13,7 @@ import {
   commentActionList,
   selectComment,
 } from '../../feature/comment/commentSlice';
-import { useSelector } from 'react-redux';
+import { selectAuth } from '../../feature/auth/authSlice';
 
 interface ICommentItemProps {
   postId: string;
@@ -23,9 +23,11 @@ interface ICommentItemProps {
 const CommentItem: FC<ICommentItemProps> = ({ postId, comment }) => {
   const dispatch = useDispatch();
 
-  const commentSelector = useSelector(selectComment);
+  const authSelector = useSelector(selectAuth);
+  const { currentUserId } = authSelector;
 
-  const { currentCommentId, isFormEditComment } = commentSelector;
+  const commentSelector = useSelector(selectComment);
+  const { currentCommentId, isFormEditComment, isEdit } = commentSelector;
 
   const handleOpenEditComment = () => {
     dispatch(commentActionList.setCurrentCommentId(comment.id));
@@ -35,27 +37,33 @@ const CommentItem: FC<ICommentItemProps> = ({ postId, comment }) => {
 
   return (
     <Styled.Wrapper>
-      {comment.body}
+      <Styled.UserId>user id: {comment.userId}</Styled.UserId>
+
+      <Styled.Description>
+        {comment.description} {isEdit ? <span>(.ред)</span> : null}
+      </Styled.Description>
 
       {isFormEditComment && currentCommentId === comment.id ? (
         <EditComment postId={postId} comment={comment} />
       ) : null}
 
-      {isFormEditComment && currentCommentId === comment.id ? null : (
+      {currentUserId === comment.userId ? (
         <Styled.ButtonEdit onClick={handleOpenEditComment}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </Styled.ButtonEdit>
-      )}
+      ) : null}
 
-      <Styled.ButtonDelete
-        onClick={() => {
-          dispatch(
-            PostActionList.deleteComment({ postId, commentId: comment.id })
-          );
-        }}
-      >
-        <FontAwesomeIcon icon={faCircleXmark} />
-      </Styled.ButtonDelete>
+      {currentUserId === comment.userId ? (
+        <Styled.ButtonDelete
+          onClick={() => {
+            dispatch(
+              PostActionList.deleteComment({ postId, commentId: comment.id })
+            );
+          }}
+        >
+          <FontAwesomeIcon icon={faCircleXmark} />
+        </Styled.ButtonDelete>
+      ) : null}
     </Styled.Wrapper>
   );
 };

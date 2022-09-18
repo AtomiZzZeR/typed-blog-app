@@ -13,7 +13,7 @@ interface IEditComentProps {
 const EditComment: FC<IEditComentProps> = ({ postId, comment }) => {
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState<string>(comment.body);
+  const [value, setValue] = useState<string>(comment.description);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

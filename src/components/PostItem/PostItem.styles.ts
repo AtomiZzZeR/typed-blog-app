@@ -10,6 +10,14 @@ const Wrapper = styled.div`
   margin: 0px 0px 55px 0px;
 `;
 
+const UserId = styled.div`
+  position: absolute;
+  top: 15px;
+  left: 15px;
+	font-size: 1.3em;
+  color: ${EThemeColor.fontColor};
+`;
+
 const PostContent = styled.div`
   position: relative;
   display: flex;
@@ -136,6 +144,7 @@ const MessageComments = styled.div`
 
 const StyledPostItem = {
   Wrapper,
+  UserId,
   PostContent,
   Title,
   Description,

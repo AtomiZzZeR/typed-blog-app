@@ -8,7 +8,7 @@ interface IInitialState {
 
 const initialState: IInitialState = {
   isAuth: false,
-  currentUserId: 0,
+  currentUserId: 1,
 };
 
 const authSlice = createSlice({
@@ -17,6 +17,9 @@ const authSlice = createSlice({
   reducers: {
     authorization: (state) => {
       state.isAuth = Boolean(localStorage.getItem('isAuth'));
+    },
+    currentUserId: (state) => {
+      state.currentUserId = Number(localStorage.getItem('currentUserId'));
     },
     login: (state) => {
       state.isAuth = true;
@@ -27,7 +30,8 @@ const authSlice = createSlice({
       localStorage.removeItem('isAuth');
     },
     changeUserId: (state, { payload: userId }) => {
-      state.currentUserId = userId;
+      state.currentUserId = Number(userId);
+      localStorage.setItem('currentUserId', `${state.currentUserId}`);
     },
   },
 });

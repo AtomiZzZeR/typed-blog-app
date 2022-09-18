@@ -1,17 +1,10 @@
-import { useDispatch } from 'react-redux';
-import { authActionList } from '../feature/auth/authSlice';
+import { Profile } from '../components/Profile';
 import Styled from './Page.styles';
 
 const ProfilePage = () => {
-  const dispatch = useDispatch();
-
-  const handleLogoutClick = () => {
-    dispatch(authActionList.logout());
-  };
-
   return (
     <Styled.Wrapper>
-      <button onClick={handleLogoutClick}>Выйти</button>
+      <Profile />
     </Styled.Wrapper>
   );
 };

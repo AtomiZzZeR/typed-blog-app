@@ -4,7 +4,7 @@ import Styled from './EditPost.styles';
 
 interface IPostData {
   title: string;
-  body: string;
+  description: string;
 }
 
 interface IEditPostProps {
@@ -20,21 +20,21 @@ const EditPost: FC<IEditPostProps> = ({
 }) => {
   const [postData, setPostData] = useState<IPostData>({
     title: post.title,
-    body: post.body,
+    description: post.description,
   });
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setPostData({ ...postData, title: e.target.value });
   };
 
-  const handleBodyChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPostData({ ...postData, body: e.target.value });
+  const handleDescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setPostData({ ...postData, description: e.target.value });
   };
 
   const handleEditClick = (e: FormEvent): void => {
     e.preventDefault();
 
-    sendPostData({ title: postData.title, body: postData.body });
+    sendPostData({ title: postData.title, description: postData.description });
 
     closeFormEditPost();
   };
@@ -54,8 +54,8 @@ const EditPost: FC<IEditPostProps> = ({
       />
       <Styled.Input
         type={'text'}
-        value={postData.body}
-        onChange={handleBodyChange}
+        value={postData.description}
+        onChange={handleDescriptionChange}
       />
 
       <Styled.Button onClick={handleEditClick}>Edit</Styled.Button>

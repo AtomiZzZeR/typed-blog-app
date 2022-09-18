@@ -12,6 +12,10 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
+    dispatch(authActionList.currentUserId());
+  }, []);
+
+  useEffect(() => {
     dispatch(PostActionList.addPostList());
   }, []);
 

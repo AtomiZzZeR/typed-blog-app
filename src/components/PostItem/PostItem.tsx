@@ -17,6 +17,7 @@ import {
   selectComment,
 } from '../../feature/comment/commentSlice';
 import { CommentList } from '../CommentList';
+import { selectAuth } from '../../feature/auth/authSlice';
 
 interface IPostItemProps {
   post: IPost;
@@ -26,12 +27,13 @@ interface IPostItemProps {
 const PostItem: FC<IPostItemProps> = ({ post, number }) => {
   const dispatch = useDispatch();
 
-  const postSelector = useSelector(selectPost);
+  const authSelector = useSelector(selectAuth);
+  const { currentUserId } = authSelector;
 
+  const postSelector = useSelector(selectPost);
   const { currentPostId } = postSelector;
 
   const commentSelector = useSelector(selectComment);
-
   const { isFormAddComment } = commentSelector;
 
   const [isFormEdit, setIsFormEdit] = useState<boolean>(false);
@@ -40,8 +42,6 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
     color: '#ff7514',
     background: '#222',
   });
-
-  const [like, setLike] = useState(0);
 
   const handleOpenFormEditPostClick = () => {
     dispatch(PostActionList.setCurrentPostId(post.id));
@@ -64,23 +64,23 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
   };
 
   const handleLikeClick = () => {
-    if (like === 1) {
-      setLike(0);
+    dispatch(
+      PostActionList.addLike({ userId: currentUserId, postId: post.id })
+    );
 
-      setStyleLike({
-        color: '#ff7514',
-        background: '#222',
-      });
+    // if (post!.likeList!.length) {
+    //   setStyleLike({
+    //     color: '#222',
+    //     background: '#ff7514',
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
-    setLike(like + 1);
-
-    setStyleLike({
-      color: '#222',
-      background: '#ff7514',
-    });
+    // setStyleLike({
+    //   color: '#ff7514',
+    //   background: '#222',
+    // });
   };
 
   const handleOpenFormAddCommentClick = () => {
@@ -92,11 +92,12 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
   return (
     <Styled.Wrapper>
       <Styled.PostContent>
+        <Styled.UserId>user id: {post.userId}</Styled.UserId>
         <Styled.Title>
           {number}. {post.title}
         </Styled.Title>
 
-        <Styled.Description>{post.body}</Styled.Description>
+        <Styled.Description>{post.description}</Styled.Description>
 
         {isFormEdit && currentPostId === post.id ? (
           <EditPost
@@ -106,15 +107,17 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
           />
         ) : null}
 
-        {isFormEdit && currentPostId === post.id ? null : (
+        {currentUserId === post.userId ? (
           <Styled.ButtonEdit onClick={handleOpenFormEditPostClick}>
             <FontAwesomeIcon icon={faPenToSquare} />
           </Styled.ButtonEdit>
-        )}
+        ) : null}
 
-        <Styled.ButtonDelete onClick={handleRemovePostClick}>
-          <FontAwesomeIcon icon={faCircleXmark} />
-        </Styled.ButtonDelete>
+        {currentUserId === post.userId ? (
+          <Styled.ButtonDelete onClick={handleRemovePostClick}>
+            <FontAwesomeIcon icon={faCircleXmark} />
+          </Styled.ButtonDelete>
+        ) : null}
 
         <Styled.BoxSystemLike>
           <Styled.ButtonLike
@@ -125,7 +128,7 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
             <FontAwesomeIcon icon={faHeart} />
           </Styled.ButtonLike>
 
-          <Styled.CountLike>{like}</Styled.CountLike>
+          <Styled.CountLike>{post!.likeList!.length}</Styled.CountLike>
         </Styled.BoxSystemLike>
 
         <Styled.ButtonAddComment onClick={handleOpenFormAddCommentClick}>

@@ -25,15 +25,17 @@ const postSlice = createSlice({
         JSON.parse(localStorage.getItem('postList') as string) || [];
     },
     addPost: (state, { payload }) => {
-      const { id, title, body, creationDate } = payload;
+      const { userId, id, title, description, creationDate } = payload;
 
       state.postList = [
         ...state.postList,
         {
+          userId,
           id,
           title,
-          body,
+          description,
           creationDate,
+          likeList: [],
           commentList: [],
         },
       ];
@@ -46,7 +48,7 @@ const postSlice = createSlice({
       const postEdit = {
         ...currentPost,
         title: newPostData.title,
-        body: newPostData.body,
+        description: newPostData.description,
       };
 
       state.postList = [
@@ -60,6 +62,41 @@ const postSlice = createSlice({
     },
     deletePost: (state, { payload: postId }) => {
       state.postList = state.postList.filter((post) => post.id !== postId);
+      localStorage.setItem('postList', JSON.stringify(state.postList));
+    },
+    addLike: (state, { payload }) => {
+      const { userId, postId } = payload;
+
+      const postFounded = state.postList.find((post) => post.id === postId);
+
+      const likeFounded = postFounded!.likeList!.find(
+        (like) => like === userId
+      );
+
+      if (likeFounded) {
+        const postChanged = {
+          ...postFounded,
+          likeList: postFounded?.likeList!.filter((like) => like !== userId),
+        };
+
+        state.postList = [
+          ...state.postList.filter((post) => post.id !== postId),
+          postChanged as IPost,
+        ];
+        localStorage.setItem('postList', JSON.stringify(state.postList));
+
+        return;
+      }
+
+      const postChanged = {
+        ...postFounded,
+        likeList: [...postFounded?.likeList!, userId],
+      };
+
+      state.postList = [
+        ...state.postList.filter((post) => post.id !== postId),
+        postChanged as IPost,
+      ];
       localStorage.setItem('postList', JSON.stringify(state.postList));
     },
     displayWindow: (state) => {
@@ -76,14 +113,10 @@ const postSlice = createSlice({
 
       const postFounded = state.postList.find((post) => post.id === postId);
 
-      console.log(JSON.stringify(postFounded));
-
       const newPost: IPost = {
         ...(postFounded as IPost),
         commentList: [...postFounded!.commentList!, newComment],
       };
-
-      console.log(JSON.stringify(newPost));
 
       state.postList = [
         ...state.postList.filter((post) => post.id !== postId),
@@ -98,7 +131,7 @@ const postSlice = createSlice({
 
       const postChanged = {
         ...postFounded,
-        commentList: postFounded!.commentList.find(
+        commentList: postFounded!.commentList!.find(
           (comment) => comment.id === commentId
         ),
       };
@@ -106,10 +139,10 @@ const postSlice = createSlice({
       const newPost = {
         ...postChanged,
         commentList: [
-          ...postFounded!.commentList.filter(
+          ...postFounded!.commentList!.filter(
             (comment) => comment.id !== commentId
           ),
-          { ...postChanged.commentList, body: value },
+          { ...postChanged.commentList, description: value },
         ],
       };
 
@@ -128,7 +161,7 @@ const postSlice = createSlice({
 
       const postChanged = {
         ...postFounded,
-        commentList: postFounded!.commentList.filter(
+        commentList: postFounded!.commentList!.filter(
           (comment) => comment.id !== commentId
         ),
       };

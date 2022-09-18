@@ -5,12 +5,14 @@ interface IInitialState {
   currentCommentId: string;
   isFormAddComment: boolean;
   isFormEditComment: boolean;
+  isEdit: boolean;
 }
 
 const initialState: IInitialState = {
   currentCommentId: '',
   isFormAddComment: false,
   isFormEditComment: false,
+  isEdit: false,
 };
 
 const commentSlice = createSlice({
@@ -31,6 +33,12 @@ const commentSlice = createSlice({
     },
     closeFormEditComment: (state) => {
       state.isFormEditComment = false;
+    },
+    setEditable: (state) => {
+      state.isEdit = true;
+    },
+    removeEditable: (state) => {
+      state.isEdit = false;
     },
   },
 });

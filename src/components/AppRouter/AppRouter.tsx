@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { selectAuth } from '../../feature/auth/authSlice';
+import HomePage from '../../pages/HomePage';
+import NotFoundPage from '../../pages/NotFoundPage';
 import { privateRoutes, publicRoutes } from '../../router';
 import { Layout } from '../Layout';
 
@@ -22,7 +24,8 @@ const AppRouter = () => {
                 key={route.path}
               />
             ))}
-            <Route path={'*'} element={<Navigate to={''} replace />} />
+            {/* <Route path={'*'} element={<Navigate to={''} replace />} /> */}
+            <Route path={'*'} element={<NotFoundPage />} />
           </Route>
         </Routes>
       ) : (
@@ -34,7 +37,7 @@ const AppRouter = () => {
               key={route.path}
             />
           ))}
-          <Route path={'*'} element={<Navigate to={'login'} replace />} />
+          <Route path={'*'} element={<NotFoundPage />} />
         </Routes>
       )}
     </>

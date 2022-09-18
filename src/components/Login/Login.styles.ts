@@ -42,11 +42,16 @@ const Button = styled.button`
   }
 `;
 
+const LinkColor = styled.span`
+  color: ${EThemeColor.fontColor};
+`;
+
 const StyledLogin = {
   Wrapper,
   BoxInputs,
   Input,
   Button,
+  LinkColor,
 };
 
 export default StyledLogin;

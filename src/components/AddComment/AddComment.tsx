@@ -1,10 +1,11 @@
 import { FC, useState, ChangeEvent, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { commentActionList } from '../../feature/comment/commentSlice';
 import Styled from './AddComment.styles';
 import { v4 as uuid } from 'uuid';
 import { IComment } from '../types/types';
 import { PostActionList } from '../../feature/post/postSlice';
+import { selectAuth } from '../../feature/auth/authSlice';
 
 interface IAddCommentsProps {
   postId: string;
@@ -13,26 +14,30 @@ interface IAddCommentsProps {
 const AddComment: FC<IAddCommentsProps> = ({ postId }) => {
   const dispatch = useDispatch();
 
-  const [comment, setComment] = useState<string>('');
+  const authSelector = useSelector(selectAuth);
+  const { currentUserId: userId } = authSelector;
+
+  const [description, setDescription] = useState<string>('');
 
   const [msgValidate, setMsgValidate] = useState<string>('');
 
   const handleCommentBodyChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
+    setDescription(e.target.value);
   };
 
   const handleAddComment = (e: FormEvent) => {
     e.preventDefault();
 
-    if (comment === '') {
+    if (description === '') {
       setMsgValidate('Error! Empty comment.');
 
       return;
     }
 
     const newComment: IComment = {
+      userId,
       id: uuid(),
-      body: comment,
+      description,
       creationDate: Date.now(),
     };
 
@@ -52,7 +57,7 @@ const AddComment: FC<IAddCommentsProps> = ({ postId }) => {
       <Styled.Input
         type={'text'}
         placeholder={'comment'}
-        value={comment}
+        value={description}
         onChange={handleCommentBodyChange}
       />
 
