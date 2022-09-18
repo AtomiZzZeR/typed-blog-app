@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IPost } from '../../components/types/types';
+import type { RootState } from '../../app/store';
 
 interface IInitialState {
   postList: IPost[];
@@ -90,12 +91,40 @@ const postSlice = createSlice({
       ];
       localStorage.setItem('postList', JSON.stringify(state.postList));
     },
+    editComment: (state, { payload }) => {
+      const { postId, commentId, value } = payload;
+
+      const postFounded = state.postList.find((post) => post.id === postId);
+
+      const postChanged = {
+        ...postFounded,
+        commentList: postFounded!.commentList.find(
+          (comment) => comment.id === commentId
+        ),
+      };
+
+      const newPost = {
+        ...postChanged,
+        commentList: [
+          ...postFounded!.commentList.filter(
+            (comment) => comment.id !== commentId
+          ),
+          { ...postChanged.commentList, body: value },
+        ],
+      };
+
+      state.postList = [
+        ...(state.postList.filter((post) => post.id !== postId) as any),
+        newPost,
+      ];
+      localStorage.setItem('postList', JSON.stringify(state.postList));
+
+      console.log(JSON.stringify(postChanged));
+    },
     deleteComment: (state, { payload }) => {
       const { postId, commentId } = payload;
 
       const postFounded = state.postList.find((post) => post.id === postId);
-
-      console.log(JSON.stringify(postFounded));
 
       const postChanged = {
         ...postFounded,
@@ -103,8 +132,6 @@ const postSlice = createSlice({
           (comment) => comment.id !== commentId
         ),
       };
-
-      console.log(JSON.stringify(postChanged));
 
       state.postList = [
         ...(state.postList.filter((post) => post.id !== postId) as any),
@@ -115,7 +142,7 @@ const postSlice = createSlice({
   },
 });
 
-export const selectPost = (state: any) => state.post;
+export const selectPost = (state: RootState) => state.post;
 
 export const PostActionList = postSlice.actions;
 

@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PostActionList, selectPost } from '../../feature/post/postSlice';
-import { FormEditPost } from '../FormEditPost';
+import { EditPost } from '../EditPost';
 import { IPost } from '../types/types';
 import Styled from './PostItem.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -91,15 +91,15 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   return (
     <Styled.Wrapper>
-      <Styled.Post>
+      <Styled.PostContent>
         <Styled.Title>
           {number}. {post.title}
         </Styled.Title>
 
-        <Styled.Content>{post.body}</Styled.Content>
+        <Styled.Description>{post.body}</Styled.Description>
 
         {isFormEdit && currentPostId === post.id ? (
-          <FormEditPost
+          <EditPost
             post={post}
             sendPostData={handleEditPostData}
             closeFormEditPost={closeFormEditPost}
@@ -116,7 +116,7 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
           <FontAwesomeIcon icon={faCircleXmark} />
         </Styled.ButtonDelete>
 
-        <Styled.BoxForSystemLike>
+        <Styled.BoxSystemLike>
           <Styled.ButtonLike
             onClick={handleLikeClick}
             color={styleLike.color}
@@ -124,25 +124,26 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
           >
             <FontAwesomeIcon icon={faHeart} />
           </Styled.ButtonLike>
+
           <Styled.CountLike>{like}</Styled.CountLike>
-        </Styled.BoxForSystemLike>
+        </Styled.BoxSystemLike>
 
-        <Styled.ButtonOpenFormAddComment
-          onClick={handleOpenFormAddCommentClick}
-        >
+        <Styled.ButtonAddComment onClick={handleOpenFormAddCommentClick}>
           <FontAwesomeIcon icon={faCommentDots} />
-        </Styled.ButtonOpenFormAddComment>
-      </Styled.Post>
+        </Styled.ButtonAddComment>
+      </Styled.PostContent>
 
-      <Styled.MessageComments>Comments:</Styled.MessageComments>
+      <Styled.PostComments>
+        <Styled.MessageComments>Comments:</Styled.MessageComments>
 
-      {post.commentList!.length ? (
-        <CommentList commentList={post.commentList!} postId={post.id} />
-      ) : null}
+        {post.commentList!.length ? (
+          <CommentList commentList={post.commentList!} postId={post.id} />
+        ) : null}
 
-      {isFormAddComment && currentPostId === post.id ? (
-        <AddComment postId={currentPostId} />
-      ) : null}
+        {isFormAddComment && currentPostId === post.id ? (
+          <AddComment postId={currentPostId} />
+        ) : null}
+      </Styled.PostComments>
     </Styled.Wrapper>
   );
 };

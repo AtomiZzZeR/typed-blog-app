@@ -11,6 +11,11 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
+const WrapperCenter = styled(Wrapper)`
+  align-items: center;
+  height: 100%;
+`;
+
 const TitlePostList = styled.div`
   width: 330px;
   margin: 30px auto;
@@ -31,6 +36,7 @@ const MessagePostsNotFound = styled.div`
 const StyledPages = {
   Container,
   Wrapper,
+  WrapperCenter,
   TitlePostList,
   MessagePostsNotFound,
 };

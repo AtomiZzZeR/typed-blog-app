@@ -6,16 +6,11 @@ interface IButtonLikeProps {
   background: string;
 }
 
-// interface IStyleLike {
-//   colorLike: string;
-//   background: string;
-// }
-
 const Wrapper = styled.div`
-  margin: 0px 0px 70px 0px;
+  margin: 0px 0px 55px 0px;
 `;
 
-const Post = styled.div`
+const PostContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -32,7 +27,7 @@ const Title = styled.div`
   text-align: center;
 `;
 
-const Content = styled.div`
+const Description = styled.div`
   font-size: 1.3em;
   text-align: center;
 `;
@@ -71,11 +66,7 @@ const ButtonDelete = styled.button`
   }
 `;
 
-const WindowConfirmationDelete = styled.div`
-  position: fixed;
-`;
-
-const BoxForSystemLike = styled.div`
+const BoxSystemLike = styled.div`
   position: absolute;
   left: 13px;
   bottom: 13px;
@@ -114,7 +105,7 @@ const CountLike = styled.div`
   border-radius: 0px 10px 10px 0px;
 `;
 
-const ButtonOpenFormAddComment = styled.button`
+const ButtonAddComment = styled.button`
   position: absolute;
   right: 13px;
   bottom: 13px;
@@ -131,6 +122,9 @@ const ButtonOpenFormAddComment = styled.button`
   }
 `;
 
+const PostComments = styled.div``;
+
+// rename
 const MessageComments = styled.div`
   color: #fff;
   margin: 15px 0px 0px 20px;
@@ -142,16 +136,16 @@ const MessageComments = styled.div`
 
 const StyledPostItem = {
   Wrapper,
-  Post,
+  PostContent,
   Title,
-  Content,
+  Description,
   ButtonEdit,
   ButtonDelete,
-  WindowConfirmationDelete,
-  BoxForSystemLike,
+  BoxSystemLike,
   ButtonLike,
   CountLike,
-  ButtonOpenFormAddComment,
+  ButtonAddComment,
+  PostComments,
   MessageComments,
 };
 

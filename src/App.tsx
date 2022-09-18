@@ -1,16 +1,15 @@
 import { FC, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-
-import HomePage from './pages/HomePage';
-import AddPostPage from './pages/AddPostPage';
-import ProfilePage from './pages/ProfilePage';
-import NotFoundPage from './pages/NotFoundPage';
-import Layout from './components/Layout/Layout';
 import { useDispatch } from 'react-redux';
 import { PostActionList } from './feature/post/postSlice';
+import { AppRouter } from './components/AppRouter';
+import { authActionList } from './feature/auth/authSlice';
 
 const App: FC = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authActionList.authorization());
+  }, []);
 
   useEffect(() => {
     dispatch(PostActionList.addPostList());
@@ -18,14 +17,7 @@ const App: FC = () => {
 
   return (
     <>
-      <Routes>
-        <Route path={'/'} element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path={'addPost'} element={<AddPostPage />} />
-          <Route path={'profile'} element={<ProfilePage />} />
-          <Route path={'*'} element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      <AppRouter />
     </>
   );
 };

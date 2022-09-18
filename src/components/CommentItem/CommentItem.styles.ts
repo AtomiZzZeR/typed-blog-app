@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import EThemeColor from '../../assets/styles/colors/theme';
 
 const Wrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,7 +14,9 @@ const Wrapper = styled.div`
   border-radius: 13px;
 `;
 
-const ButtonDelete = styled.button`
+const ButtonStyles = css`
+  position: absolute;
+  top: 13px;
   width: 40px;
   height: 40px;
   font-size: 1.5em;
@@ -31,8 +34,19 @@ const ButtonDelete = styled.button`
   }
 `;
 
+const ButtonEdit = styled.button`
+  right: 63px;
+  ${ButtonStyles};
+`;
+
+const ButtonDelete = styled.button`
+  right: 13px;
+  ${ButtonStyles};
+`;
+
 const StyledCommentItem = {
   Wrapper,
+  ButtonEdit,
   ButtonDelete,
 };
 
