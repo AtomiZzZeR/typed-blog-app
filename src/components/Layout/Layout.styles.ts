@@ -16,7 +16,6 @@ const Header = styled.header`
   align-items: center;
   width: 100%;
   height: 80px;
-  margin: 10px 0px 0px 0px;
   padding: 0px 30px;
   background-color: ${EThemeColor.accentColor};
   border-radius: 100px;

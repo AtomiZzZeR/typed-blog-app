@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostActionList, selectPost } from '../../feature/post/postSlice';
+import { postActionList, selectPost } from '../../feature/post/postSlice';
 import { EditPost } from '../EditPost';
 import { IPost } from '../types/types';
 import Styled from './PostItem.styles';
@@ -40,23 +40,23 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   const [styleLike, setStyleLike] = useState({
     color: '#ff7514',
-    background: '#222',
+    bgColor: '#222',
   });
 
   const handleOpenFormEditPostClick = () => {
-    dispatch(PostActionList.setCurrentPostId(post.id));
+    dispatch(postActionList.setCurrentPostId(post.id));
 
     setIsFormEdit(true);
   };
 
   const handleEditPostData = (postData: any) => {
-    dispatch(PostActionList.editPost([post, postData]));
+    dispatch(postActionList.editPost([post, postData]));
   };
 
   const handleRemovePostClick = () => {
-    dispatch(PostActionList.setCurrentPostId(post.id));
+    dispatch(postActionList.setCurrentPostId(post.id));
 
-    dispatch(PostActionList.displayWindow());
+    dispatch(postActionList.displayWindow());
   };
 
   const closeFormEditPost = () => {
@@ -65,7 +65,7 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
 
   const handleLikeClick = () => {
     dispatch(
-      PostActionList.addLike({ userId: currentUserId, postId: post.id })
+      postActionList.addLike({ userId: currentUserId, postId: post.id })
     );
 
     // if (post!.likeList!.length) {
@@ -84,9 +84,9 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
   };
 
   const handleOpenFormAddCommentClick = () => {
-    dispatch(PostActionList.setCurrentPostId(post.id));
+    dispatch(postActionList.setCurrentPostId(post.id));
 
-    dispatch(commentActionList.openFormAddComment());
+    dispatch(commentActionList.openAddComment());
   };
 
   return (
@@ -123,12 +123,12 @@ const PostItem: FC<IPostItemProps> = ({ post, number }) => {
           <Styled.ButtonLike
             onClick={handleLikeClick}
             color={styleLike.color}
-            background={styleLike.background}
+            bgColor={styleLike.bgColor}
           >
             <FontAwesomeIcon icon={faHeart} />
           </Styled.ButtonLike>
 
-          <Styled.CountLike>{post!.likeList!.length}</Styled.CountLike>
+          <Styled.CountLike>{post.likeList!.length}</Styled.CountLike>
         </Styled.BoxSystemLike>
 
         <Styled.ButtonAddComment onClick={handleOpenFormAddCommentClick}>

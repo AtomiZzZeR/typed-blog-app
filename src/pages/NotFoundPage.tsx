@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { NotFound } from '../components/NotFound';
 import Styled from './Page.styles';
 
 const NotFoundPage = () => {
   return (
     <Styled.Wrapper>
-      NotFoundPage <Link to={'/'}>Link</Link>
+      <NotFound />
     </Styled.Wrapper>
   );
 };

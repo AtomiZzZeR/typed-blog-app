@@ -19,7 +19,7 @@ const authSlice = createSlice({
       state.isAuth = Boolean(localStorage.getItem('isAuth'));
     },
     currentUserId: (state) => {
-      state.currentUserId = Number(localStorage.getItem('currentUserId'));
+      state.currentUserId = Number(localStorage.getItem('currentUserId')) || 1;
     },
     login: (state) => {
       state.isAuth = true;

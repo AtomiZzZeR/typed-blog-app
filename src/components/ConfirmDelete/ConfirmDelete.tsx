@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { PostActionList, selectPost } from '../../feature/post/postSlice';
+import { postActionList, selectPost } from '../../feature/post/postSlice';
 import Styled from './ConfirmDelete.styles';
 
 const ConfirmDelete: FC = () => {
@@ -12,13 +12,13 @@ const ConfirmDelete: FC = () => {
   const { currentPostId } = postSelector;
 
   const handleConfirmDeletePost = () => {
-    dispatch(PostActionList.deletePost(currentPostId));
+    dispatch(postActionList.deletePost(currentPostId));
 
-    dispatch(PostActionList.closeWindow());
+    dispatch(postActionList.closeWindow());
   };
 
   const handleCancelDeletePost = () => {
-    dispatch(PostActionList.closeWindow());
+    dispatch(postActionList.closeWindow());
   };
 
   return (

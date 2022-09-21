@@ -20,11 +20,26 @@ const GlobalStyles = createGlobalStyle`
 		background-color: ${EThemeColor.primaryColor}
 	}
 
+	#root {
+		padding: 10px 0px 0px 0px;
+	}
+
+	body::-webkit-scrollbar {
+  	width: 9px;             
+	}
+	body::-webkit-scrollbar-track {
+  	background: ${EThemeColor.primaryColor};      
+	} 
+	body::-webkit-scrollbar-thumb {
+  	background-color: ${EThemeColor.accentColor};    
+  	border-radius: 100px;       
+	}
+
 	a {
 		text-decoration: none;
 	}
 
-	input {
+	/* input {
 		font-weight: bold;
 		border: none;
 
@@ -37,7 +52,7 @@ const GlobalStyles = createGlobalStyle`
 		font-weight: bold;
 		border: none;
 		cursor: pointer;
-	}
+	} */
 	
 `;
 

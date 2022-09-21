@@ -22,10 +22,10 @@ const commentSlice = createSlice({
     setCurrentCommentId: (state, { payload: commentId }) => {
       state.currentCommentId = commentId;
     },
-    openFormAddComment: (state) => {
+    openAddComment: (state) => {
       state.isFormAddComment = true;
     },
-    closeFormAddComment: (state) => {
+    closeAddComment: (state) => {
       state.isFormAddComment = false;
     },
     openFormEditComment: (state) => {

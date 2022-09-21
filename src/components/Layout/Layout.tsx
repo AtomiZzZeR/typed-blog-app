@@ -37,6 +37,12 @@ const Layout = () => {
               <Styled.TextLink>Profile</Styled.TextLink>
             </Link>
           </Styled.Link>
+
+          <Styled.Link>
+            <Link to={'/select'}>
+              <Styled.TextLink>Select</Styled.TextLink>
+            </Link>
+          </Styled.Link>
         </Styled.Header>
       </Styled.Container>
 

@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { PostActionList } from './feature/post/postSlice';
+import { postActionList } from './feature/post/postSlice';
 import { AppRouter } from './components/AppRouter';
 import { authActionList } from './feature/auth/authSlice';
 
@@ -16,7 +16,7 @@ const App: FC = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(PostActionList.addPostList());
+    dispatch(postActionList.addPostList());
   }, []);
 
   return (

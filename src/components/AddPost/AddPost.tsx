@@ -2,9 +2,11 @@ import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import Styled from './AddPost.styles';
 import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { PostActionList } from '../../feature/post/postSlice';
+import { postActionList } from '../../feature/post/postSlice';
 import { useSelector } from 'react-redux';
 import { selectAuth } from '../../feature/auth/authSlice';
+import { SelectOption } from '../UI KIT/SelectOption';
+import { IOption } from '../UI KIT/SelectOption/SelectOption';
 
 interface IAddPostState {
   title: string;
@@ -29,6 +31,16 @@ const AddPost: FC = () => {
     }
   );
 
+  const options: IOption[] = [
+    { value: 'Python', content: 'Python' },
+    { value: 'JavaScript', content: 'JavaScript' },
+    { value: 'Swift', content: 'Swift' },
+    { value: 'Fortran', content: 'Fortran' },
+    { value: 'C++', content: 'C++' },
+    { value: 'TypeScript', content: 'TypeScript' },
+    { value: 'SQL', content: 'SQL' },
+  ];
+
   const [borderInputs, setBorderInputs] = useState<[string, string]>([
     EBorderInputs.default,
     EBorderInputs.default,
@@ -48,7 +60,9 @@ const AddPost: FC = () => {
     );
   };
 
-  const handlePostdescriptionChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  const handlePostdescriptionChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     setPost({ ...post, description: e.target.value });
     sessionStorage.setItem(
       'postData',
@@ -93,7 +107,7 @@ const AddPost: FC = () => {
       likeList: [],
     };
 
-    dispatch(PostActionList.addPost(newPost));
+    dispatch(postActionList.addPost(newPost));
 
     setColorMessageValidate('#47a76a');
 
@@ -102,7 +116,10 @@ const AddPost: FC = () => {
     setBorderInputs([EBorderInputs.default, EBorderInputs.default]);
 
     setPost({ title: '', description: '' });
-    sessionStorage.setItem('postData', JSON.stringify({ title: '', description: '' }));
+    sessionStorage.setItem(
+      'postData',
+      JSON.stringify({ title: '', description: '' })
+    );
   };
 
   const handleCloseMessage = (): void => {
@@ -116,16 +133,18 @@ const AddPost: FC = () => {
     <Styled.Form>
       <Styled.Input
         type={'text'}
-        placeholder={'post title'}
+        placeholder={'title'}
         value={post.title}
         border={borderInputs[0]}
         onChange={handlePostTitleChange}
         onFocus={handleCloseMessage}
       />
 
+      <SelectOption options={options} />
+
       <Styled.Input
         type={'text'}
-        placeholder={'description title'}
+        placeholder={'description'}
         value={post.description}
         border={borderInputs[1]}
         onChange={handlePostdescriptionChange}

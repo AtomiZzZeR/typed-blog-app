@@ -3,7 +3,7 @@ import EThemeColor from '../../assets/styles/colors/theme';
 
 interface IButtonLikeProps {
   color: string;
-  background: string;
+  bgColor: string;
 }
 
 const Wrapper = styled.div`
@@ -14,7 +14,7 @@ const UserId = styled.div`
   position: absolute;
   top: 15px;
   left: 15px;
-	font-size: 1.3em;
+  font-size: 1.3em;
   color: ${EThemeColor.fontColor};
 `;
 
@@ -88,7 +88,7 @@ const ButtonLike = styled.button<IButtonLikeProps>`
   font-size: 1.5em;
   border: 3px solid ${EThemeColor.accentColor};
   color: ${(props) => props.color};
-  background-color: ${(props) => props.background};
+  background-color: ${(props) => props.bgColor};
   border-radius: 10px 10px 10px 50%;
 
   &:hover {

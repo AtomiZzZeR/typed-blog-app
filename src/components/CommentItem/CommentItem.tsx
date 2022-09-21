@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PostActionList } from '../../feature/post/postSlice';
+import { postActionList } from '../../feature/post/postSlice';
 import { IComment } from '../types/types';
 import Styled from './CommentItem.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -57,7 +57,7 @@ const CommentItem: FC<ICommentItemProps> = ({ postId, comment }) => {
         <Styled.ButtonDelete
           onClick={() => {
             dispatch(
-              PostActionList.deleteComment({ postId, commentId: comment.id })
+              postActionList.deleteComment({ postId, commentId: comment.id })
             );
           }}
         >

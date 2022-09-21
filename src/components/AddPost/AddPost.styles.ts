@@ -14,8 +14,8 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   width: 600px;
-  height: 310px;
-  margin: 140px 0px 0px 0px;
+  height: 600px;
+  margin: 25px 0px 0px 0px;
   padding: 45px 0px 0px 0px;
   border: 4px dashed ${EThemeColor.accentColor};
   border-radius: 50px;

@@ -18,20 +18,20 @@ const Input = styled.input`
   border-radius: 100px;
 `;
 
-const MessageValidate = styled.div`
+const MsgValidate = styled.div`
   margin: 9px 0px 0px 0px;
   text-align: center;
   color: #ff3333;
 `;
 
-const BoxForButtons = styled.div`
+const BoxForBtns = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 8px auto 0px;
   width: 150px;
 `;
 
-const Button = styled.button`
+const Btn = styled.button`
   padding: 0px 5px;
   color: ${EThemeColor.fontColor};
   background-color: ${EThemeColor.primaryColor};
@@ -42,9 +42,9 @@ const Button = styled.button`
 const StyledAddComment = {
   Form,
   Input,
-  MessageValidate,
-  BoxForButtons,
-  Button,
+  MsgValidate,
+  BoxForBtns,
+  Btn,
 };
 
 export default StyledAddComment;

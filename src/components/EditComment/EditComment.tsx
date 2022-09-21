@@ -1,7 +1,7 @@
 import { FC, useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { commentActionList } from '../../feature/comment/commentSlice';
-import { PostActionList } from '../../feature/post/postSlice';
+import { postActionList } from '../../feature/post/postSlice';
 import { IComment } from '../types/types';
 import Styled from './EditComment.styles';
 
@@ -23,7 +23,7 @@ const EditComment: FC<IEditComentProps> = ({ postId, comment }) => {
     e.preventDefault();
 
     dispatch(
-      PostActionList.editComment({ postId, commentId: comment.id, value })
+      postActionList.editComment({ postId, commentId: comment.id, value })
     );
 
     dispatch(commentActionList.closeFormEditComment());

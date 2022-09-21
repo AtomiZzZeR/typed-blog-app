@@ -4,8 +4,8 @@ export interface IPost {
   title: string;
   description: string;
   creationDate: number;
-  likeList?: number[];
-  commentList?: IComment[];
+  likeList: number[];
+  commentList: IComment[];
 }
 
 export interface IComment {
@@ -13,5 +13,5 @@ export interface IComment {
   id: string;
   description: string;
   creationDate: number;
-  likeList?: number[];
+  likeList: number[];
 }

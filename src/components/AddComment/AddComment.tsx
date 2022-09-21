@@ -4,14 +4,14 @@ import { commentActionList } from '../../feature/comment/commentSlice';
 import Styled from './AddComment.styles';
 import { v4 as uuid } from 'uuid';
 import { IComment } from '../types/types';
-import { PostActionList } from '../../feature/post/postSlice';
+import { postActionList } from '../../feature/post/postSlice';
 import { selectAuth } from '../../feature/auth/authSlice';
 
-interface IAddCommentsProps {
+interface IAddCommentProps {
   postId: string;
 }
 
-const AddComment: FC<IAddCommentsProps> = ({ postId }) => {
+const AddComment: FC<IAddCommentProps> = ({ postId }) => {
   const dispatch = useDispatch();
 
   const authSelector = useSelector(selectAuth);
@@ -21,11 +21,13 @@ const AddComment: FC<IAddCommentsProps> = ({ postId }) => {
 
   const [msgValidate, setMsgValidate] = useState<string>('');
 
-  const handleCommentBodyChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (
+    e: ChangeEvent<HTMLInputElement>
+  ): void => {
     setDescription(e.target.value);
   };
 
-  const handleAddComment = (e: FormEvent) => {
+  const handleAddClick = (e: FormEvent): void => {
     e.preventDefault();
 
     if (description === '') {
@@ -39,34 +41,35 @@ const AddComment: FC<IAddCommentsProps> = ({ postId }) => {
       id: uuid(),
       description,
       creationDate: Date.now(),
+      likeList: [],
     };
 
-    dispatch(PostActionList.addComment({ postId, newComment }));
+    dispatch(postActionList.addComment({ postId, newComment }));
 
-    dispatch(commentActionList.closeFormAddComment());
+    dispatch(commentActionList.closeAddComment());
   };
 
-  const handleCancelAddComment = (e: FormEvent) => {
+  const handleCancelClick = (e: FormEvent): void => {
     e.preventDefault();
 
-    dispatch(commentActionList.closeFormAddComment());
+    dispatch(commentActionList.closeAddComment());
   };
 
   return (
     <Styled.Form>
       <Styled.Input
         type={'text'}
-        placeholder={'comment'}
+        placeholder={'description'}
         value={description}
-        onChange={handleCommentBodyChange}
+        onChange={handleDescriptionChange}
       />
 
-      <Styled.MessageValidate>{msgValidate}</Styled.MessageValidate>
+      <Styled.MsgValidate>{msgValidate}</Styled.MsgValidate>
 
-      <Styled.BoxForButtons>
-        <Styled.Button onClick={handleAddComment}>Submit</Styled.Button>
-        <Styled.Button onClick={handleCancelAddComment}>Cancel</Styled.Button>
-      </Styled.BoxForButtons>
+      <Styled.BoxForBtns>
+        <Styled.Btn onClick={handleAddClick}>Submit</Styled.Btn>
+        <Styled.Btn onClick={handleCancelClick}>Cancel</Styled.Btn>
+      </Styled.BoxForBtns>
     </Styled.Form>
   );
 };
